@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>At First Sight — Support & Correspondence</title>
+  <meta name="description" content="Official customer support, technical documentation, and inquiry portal for At First Sight — a procedural sight-reading trainer for pianists on iOS, iPadOS, and watchOS.">
+  <link rel="icon" type="image/png" href="app-icon.png">
+  <link rel="apple-touch-icon" href="app-icon.png">
+
+  <!-- Typography: Newsreader (Editorial Serif) & Instrument Sans (Clean Grotesque) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #FBF9F4;
+      --bg-panel: #F4F0E6;
+      --bg-code: #ECE7DA;
+      --ink: #1C1F1B;
+      --ink-muted: #565B53;
+      --ink-faint: #80867C;
+      --border: #D8D3C4;
+      --border-light: #E8E4D8;
+      --rule: #232822;
+      --accent: #2B542E;
+      --accent-hover: #1C3B1F;
+      --accent-tint: #EAF0E8;
+      
+      --font-serif: "Newsreader", "Baskerville", "Georgia", serif;
+      --font-sans: "Instrument Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-mono: ui-monospace, "SF Mono", "Menlo", monospace;
+
+      --measure: 68ch;
+      --space-xs: 0.5rem;
+      --space-sm: 0.875rem;
+      --space-md: 1.5rem;
+      --space-lg: 2.5rem;
+      --space-xl: 4rem;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #141713;
+        --bg-panel: #1A1F19;
+        --bg-code: #222921;
+        --ink: #E5E9E1;
+        --ink-muted: #9BA396;
+        --ink-faint: #697264;
+        --border: #2C352B;
+        --border-light: #222A21;
+        --rule: #5B6657;
+        --accent: #8EB988;
+        --accent-hover: #ABD2A6;
+        --accent-tint: #1C261B;
+      }
+    }
+
+    /* Reset & Base Typographic Rules */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 17px;
+      line-height: 1.65;
+      background-color: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-serif);
+      font-feature-settings: "kern", "liga", "cv01";
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: var(--space-xl) var(--space-md);
+    }
+
+    .edition-container {
+      width: 100%;
+      max-width: var(--measure);
+      margin: 0 auto;
+    }
+
+    /* Traditional Urtext / Classical Engraving Header */
+    header.edition-header {
+      text-align: center;
+      padding-bottom: var(--space-lg);
+      margin-bottom: var(--space-xl);
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+
+    .header-double-rule {
+      border-top: 2px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      height: 4px;
+      margin-bottom: var(--space-lg);
+    }
+
+    .app-icon-wrap {
+      display: inline-block;
+      margin-bottom: var(--space-md);
+    }
+
+    .app-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 17px;
+      border: 1px solid var(--border);
+      display: block;
+      margin: 0 auto;
+    }
+
+    .edition-label {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 0.6rem;
+      font-weight: 500;
+    }
+
+    h1.app-title {
+      font-family: var(--font-serif);
+      font-size: 2.6rem;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      line-height: 1.15;
+      color: var(--ink);
+      margin-bottom: 0.4rem;
+    }
+
+    .edition-subtitle {
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--ink-muted);
+      margin-bottom: 1rem;
+    }
+
+    .platform-row {
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      color: var(--ink-faint);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      word-spacing: 0.2em;
+    }
+
+    /* Section Styling */
+    section {
+      margin-bottom: var(--space-xl);
+    }
+
+    .section-numeral {
+      font-family: var(--font-sans);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+    }
+
+    h2.section-heading {
+      font-size: 1.6rem;
+      font-weight: 400;
+      line-height: 1.25;
+      margin-bottom: var(--space-md);
+      color: var(--ink);
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    p {
+      margin-bottom: 1rem;
+      color: var(--ink);
+    }
+
+    p.lead {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: var(--ink);
+    }
+
+    /* Clean Support Card */
+    .support-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: var(--space-md) var(--space-lg);
+      margin: var(--space-md) 0 var(--space-lg) 0;
+    }
+
+    .support-card-header {
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .email-display {
+      font-family: var(--font-mono);
+      font-size: 1.05rem;
+      color: var(--ink);
+      margin-bottom: 1.25rem;
+      word-break: break-all;
+    }
+
+    .actions-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .btn {
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.55rem 1.1rem;
+      border-radius: 3px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    }
+
+    .btn-primary {
+      background-color: var(--accent);
+      color: #FFFFFF;
+      border: 1px solid var(--accent);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--accent-hover);
+      border-color: var(--accent-hover);
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      color: var(--ink);
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      background-color: var(--bg);
+      border-color: var(--ink-muted);
+    }
+
+    .support-meta {
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      color: var(--ink-muted);
+      margin-top: 1.2rem;
+      line-height: 1.5;
+    }
+
+    /* Bug Reporting Checklist */
+    .checklist-panel {
+      border-left: 2px solid var(--border);
+      padding-left: 1.2rem;
+      margin: var(--space-md) 0;
+    }
+
+    .checklist-title {
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    ul.editorial-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    ul.editorial-list li {
+      position: relative;
+      padding-left: 1.4rem;
+      margin-bottom: 0.55rem;
+      font-size: 0.95rem;
+      color: var(--ink);
+    }
+
+    ul.editorial-list li::before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      color: var(--ink-faint);
+    }
+
+    /* FAQ Details & Summary */
+    .faq-item {
+      border-bottom: 1px solid var(--border-light);
+      padding: var(--space-md) 0;
+    }
+
+    .faq-item:first-of-type {
+      border-top: 1px solid var(--border-light);
+    }
+
+    .faq-question {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+
+    .faq-answer {
+      font-size: 0.95rem;
+      color: var(--ink-muted);
+      line-height: 1.65;
+    }
+
+    .faq-answer p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Links & Documentation */
+    a.link {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-thickness: 1px;
+      transition: color 0.15s ease;
+    }
+
+    a.link:hover {
+      color: var(--accent-hover);
+    }
+
+    /* Colophon / Footer */
+    footer.edition-footer {
+      width: 100%;
+      max-width: var(--measure);
+      margin-top: var(--space-xl);
+      padding-top: var(--space-lg);
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      color: var(--ink-faint);
+    }
+
+    .footer-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .footer-nav a {
+      color: var(--ink-muted);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .footer-nav a:hover {
+      color: var(--ink);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .footer-copy {
+      line-height: 1.5;
+    }
+
+    /* Icon SVGs */
+    .icon {
+      width: 15px;
+      height: 15px;
+      stroke-width: 1.75;
+      stroke: currentColor;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    /* Notification Toast (Subtle, Non-Slop) */
+    .copy-status {
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      color: var(--accent);
+      margin-left: 0.5rem;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      display: inline-block;
+    }
+
+    .copy-status.visible {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <main class="edition-container">
+    
+    <header class="edition-header">
+      <div class="header-double-rule"></div>
+      
+      <div class="app-icon-wrap">
+        <img src="app-icon.png" alt="At First Sight Icon" class="app-icon" width="72" height="72">
+      </div>
+
+      <div class="edition-label">Music Engraving & Pedagogical Software</div>
+      <h1 class="app-title">At First Sight</h1>
+      <div class="edition-subtitle">Sight-Reading for Pianists</div>
+      <div class="platform-row">Available on iPhone · iPad · Apple Watch</div>
+    </header>
+
+    <!-- SECTION I: OVERVIEW -->
+    <section id="about">
+      <div class="section-numeral">I · About the Application</div>
+      <h2 class="section-heading">Musically Structured Reading Exercises</h2>
+      <p class="lead">
+        <em>At First Sight</em> is an application built for pianists who need consistent, fresh sight-reading material without exhausting repertoire libraries or memorizing predictable note patterns.
+      </p>
+      <p>
+        Rather than relying on static musical fragments, the application employs a procedural music engine that builds balanced two-handed exercises from fundamental voice-leading, harmony, rhythm, and accompaniment structures. Every piece is engraved directly to standard music notation, rendered faithfully across iOS, iPadOS, and accompanied by quick flashcard recognition on watchOS.
+      </p>
+    </section>
+
+    <!-- SECTION II: SUPPORT & CORRESPONDENCE -->
+    <section id="support">
+      <div class="section-numeral">II · Support & Inquiries</div>
+      <h2 class="section-heading">Direct Correspondence</h2>
+      <p>
+        If you encounter an issue, notice an engraving discrepancy, have a question regarding subscriptions, or wish to suggest musical improvements, please write directly to developer support:
+      </p>
+
+      <div class="support-card">
+        <div class="support-card-header">Official Inquiries & Help</div>
+        <div class="email-display">colbycabrera.wd@gmail.com</div>
+        
+        <div class="actions-row">
+          <a href="mailto:colbycabrera.wd@gmail.com?subject=At%20First%20Sight%20-%20Support%20Request" class="btn btn-primary">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            Compose Email
+          </a>
+          <button id="copy-btn" class="btn btn-outline" type="button" onclick="copyEmail()">
+            <svg class="icon" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            <span id="copy-label">Copy Address</span>
+          </button>
+          <span id="copy-status" class="copy-status" aria-live="polite">Copied to clipboard</span>
+        </div>
+
+        <div class="support-meta">
+          Correspondence is monitored actively. Inquiries generally receive a response within 24 to 48 business hours.
+        </div>
+      </div>
+
+      <div class="checklist-panel">
+        <div class="checklist-title">Helpful Details for Technical Issues</div>
+        <p style="font-size: 0.95rem; margin-bottom: 0.6rem; color: var(--ink-muted);">When reporting an unexpected crash or layout anomaly, including the following expedites resolution:</p>
+        <ul class="editorial-list">
+          <li>Device model (e.g. iPad Pro 11-inch, iPhone 15, Apple Watch Series 9).</li>
+          <li>Operating system version (e.g. iOS 18.1, watchOS 11.0).</li>
+          <li>The current exercise parameters (selected key, time signature, difficulty tier).</li>
+          <li>A brief description or screenshot of the observed behavior.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SECTION III: FREQUENT INQUIRIES -->
+    <section id="faq">
+      <div class="section-numeral">III · Frequent Inquiries</div>
+      <h2 class="section-heading">Questions & Guidance</h2>
+
+      <div class="faq-item">
+        <div class="faq-question">How do I restore an existing subscription or purchase?</div>
+        <div class="faq-answer">
+          <p>
+            If you have reinstalled the app or set up a new Apple device, open <em>At First Sight</em>, navigate to the <strong>Settings</strong> screen (or the Subscription page), and select <strong>Restore Purchases</strong>. This will query your Apple ID and restore your active entitlement immediately without charging your account.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">How do I cancel or modify my subscription?</div>
+        <div class="faq-answer">
+          <p>
+            All subscriptions are processed securely by Apple through your Apple ID. To manage or cancel renewals at any time:
+          </p>
+          <p>
+            Open the <strong>Settings</strong> app on your iOS device &rarr; tap your <strong>Name / Apple ID</strong> banner at the top &rarr; select <strong>Subscriptions</strong> &rarr; tap <strong>At First Sight</strong> to view expiration dates or turn off auto-renewal.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">How does procedural exercise generation work?</div>
+        <div class="faq-answer">
+          <p>
+            Rather than stitching together pre-recorded MIDI files or random pitch sequences, the generator implements classical harmonic progressions (tonic, subdominant, dominant preparations, cadences) alongside balanced melodic contours and left-hand accompaniment textures (broken chords, Alberti bass, choral voicing). This ensures exercises read naturally like authentic piano literature.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">What features are included in the Apple Watch companion app?</div>
+        <div class="faq-answer">
+          <p>
+            The watchOS application is designed for quick, focused note-identification drills on the go. It renders clean single-staff and grand-staff noteheads directly on your wrist, allowing you to sharpen clef reading speed during brief moments away from the keyboard.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Can I submit feature suggestions or pedagogical requests?</div>
+        <div class="faq-answer">
+          <p>
+            Yes. We welcome feedback from piano instructors, conservatory students, and practicing musicians. Please email your thoughts directly to <a href="mailto:colbycabrera.wd@gmail.com?subject=At%20First%20Sight%20-%20Suggestion" class="link">colbycabrera.wd@gmail.com</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION IV: LEGAL & POLICIES -->
+    <section id="legal">
+      <div class="section-numeral">IV · Governance & Privacy</div>
+      <h2 class="section-heading">Legal & Privacy Safeguards</h2>
+      <p>
+        <em>At First Sight</em> respects musician privacy. The application operates primarily offline on your device, with no ad-tracking networks or personal profile harvesting.
+      </p>
+      <p>
+        For full documentation of our data handling practices and customer terms, please consult our official documents:
+      </p>
+      <ul class="editorial-list">
+        <li>
+          <a href="https://colbycabrera.github.io/At-First-Sight-Privacy-Policy/" class="link" target="_blank" rel="noopener noreferrer">
+            Official Privacy Policy & Terms of Service &rarr;
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <!-- FOOTER / COLOPHON -->
+    <footer class="edition-footer">
+      <div class="footer-nav">
+        <a href="#about">Overview</a>
+        <a href="#support">Support</a>
+        <a href="#faq">FAQ</a>
+        <a href="https://colbycabrera.github.io/At-First-Sight-Privacy-Policy/" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+      </div>
+      <div class="footer-copy">
+        &copy; 2026 LunaWorks · Colby Cabrera. All rights reserved.<br>
+        Published for pianists and music educators.
+      </div>
+    </footer>
+
+  </main>
+
+  <script>
+    function copyEmail() {
+      const email = "colbycabrera.wd@gmail.com";
+      const statusEl = document.getElementById("copy-status");
+      const labelEl = document.getElementById("copy-label");
+
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(email).then(showConfirmation).catch(fallbackCopy);
+      } else {
+        fallbackCopy();
+      }
+
+      function fallbackCopy() {
+        const textarea = document.createElement("textarea");
+        textarea.value = email;
+        textarea.style.position = "fixed";
+        textarea.style.left = "-9999px";
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+          document.execCommand("copy");
+          showConfirmation();
+        } catch (e) {
+          console.error("Copy failed", e);
+        }
+        document.body.removeChild(textarea);
+      }
+
+      function showConfirmation() {
+        statusEl.classList.add("visible");
+        labelEl.textContent = "Address Copied";
+        setTimeout(() => {
+          statusEl.classList.remove("visible");
+          labelEl.textContent = "Copy Address";
+        }, 2600);
+      }
+    }
+  </script>
+</body>
+</html>
